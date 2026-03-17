@@ -6,6 +6,10 @@ import churchesRoutes from "../modules/churches/churches.routes";
 import authRoutes from "../modules/auth/auth.routes";
 import usersRoutes from "../modules/users/users.routes";
 import membersRoutes from "../modules/members/members.routes";
+import ministriesRoutes from "../modules/ministries/ministries.routes";
+import memberMinistriesRoutes from "../modules/member-ministries/memberMinistries.routes";
+import councilsRoutes from "../modules/councils/councils.routes";
+import memberCouncilsRoutes from "../modules/member-councils/memberCouncils.routes";
 
 const router = Router();
 
@@ -42,5 +46,9 @@ router.use("/churches", churchesRoutes);
 router.use("/auth", authRoutes);
 router.use("/users", usersRoutes);
 router.use("/members", membersRoutes);
+router.use("/ministries", ministriesRoutes);
+router.use("/member-ministries", memberMinistriesRoutes);
+router.use("/councils", councilsRoutes);
+router.use("/member-councils", memberCouncilsRoutes);
 
 export default router;
