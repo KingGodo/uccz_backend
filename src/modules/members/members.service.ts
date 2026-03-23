@@ -1,22 +1,19 @@
 import { db } from "../../database/db";
 import { CreateMemberDTO, UpdateMemberDTO } from "./members.types";
 
+// 🔥 GET ALL
 export const getMembers = async () => {
-
-  const result = await db.query(
-    `
+  const result = await db.query(`
     SELECT *
     FROM members
     ORDER BY created_at DESC
-    `
-  );
+  `);
 
   return result.rows;
-
 };
 
+// 🔥 GET ONE
 export const getMemberById = async (id: number) => {
-
   const result = await db.query(
     `
     SELECT *
@@ -27,11 +24,10 @@ export const getMemberById = async (id: number) => {
   );
 
   return result.rows[0];
-
 };
 
+// 🔥 CREATE MEMBER (UPDATED ✅)
 export const createMember = async (data: CreateMemberDTO) => {
-
   const result = await db.query(
     `
     INSERT INTO members
@@ -45,9 +41,11 @@ export const createMember = async (data: CreateMemberDTO) => {
       date_of_birth,
       active_status,
       date_joined_uccz,
-      has_relative_in_uccz
+      has_relative_in_uccz,
+      email,
+      phone
     )
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
     RETURNING *
     `,
     [
@@ -60,16 +58,17 @@ export const createMember = async (data: CreateMemberDTO) => {
       data.date_of_birth || null,
       data.active_status || null,
       data.date_joined_uccz || null,
-      data.has_relative_in_uccz ?? false
+      data.has_relative_in_uccz ?? false,
+      data.email || null,   // ✅ NEW
+      data.phone || null    // ✅ NEW
     ]
   );
 
   return result.rows[0];
-
 };
 
+// 🔥 UPDATE MEMBER (UPDATED ✅)
 export const updateMember = async (id: number, data: UpdateMemberDTO) => {
-
   const result = await db.query(
     `
     UPDATE members
@@ -83,8 +82,10 @@ export const updateMember = async (id: number, data: UpdateMemberDTO) => {
       active_status = COALESCE($7, active_status),
       date_joined_uccz = COALESCE($8, date_joined_uccz),
       has_relative_in_uccz = COALESCE($9, has_relative_in_uccz),
+      email = COALESCE($10, email),     -- ✅ NEW
+      phone = COALESCE($11, phone),     -- ✅ NEW
       updated_at = CURRENT_TIMESTAMP
-    WHERE id = $10
+    WHERE id = $12
     RETURNING *
     `,
     [
@@ -97,16 +98,17 @@ export const updateMember = async (id: number, data: UpdateMemberDTO) => {
       data.active_status,
       data.date_joined_uccz,
       data.has_relative_in_uccz,
+      data.email,   // ✅ NEW
+      data.phone,   // ✅ NEW
       id
     ]
   );
 
   return result.rows[0];
-
 };
 
+// 🔥 DELETE
 export const deleteMember = async (id: number) => {
-
   const result = await db.query(
     `
     DELETE FROM members
@@ -117,5 +119,4 @@ export const deleteMember = async (id: number) => {
   );
 
   return result.rows[0];
-
 };

@@ -15,6 +15,9 @@ export interface CreateMemberDTO {
   date_joined_uccz?: string;
 
   has_relative_in_uccz?: boolean;
+
+  email?: string;   // ✅ NEW
+  phone?: string;   // ✅ NEW
 }
 
 export interface UpdateMemberDTO {
@@ -32,4 +35,7 @@ export interface UpdateMemberDTO {
   date_joined_uccz?: string;
 
   has_relative_in_uccz?: boolean;
+
+  email?: string;   // ✅ NEW
+  phone?: string;   // ✅ NEW
 }
