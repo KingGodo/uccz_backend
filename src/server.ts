@@ -8,10 +8,13 @@ import { env } from "./config/env";
 
 const app = express();
 
-// ✅ FIXED CORS CONFIG
+// ✅ CORS CONFIG – allow local development and Vercel frontend
 app.use(
   cors({
-    origin: "http://localhost:3000", // your frontend
+    origin: [
+      "http://localhost:3000",                 // local development
+      "https://uccz-frontend.vercel.app"       // production frontend on Vercel
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
