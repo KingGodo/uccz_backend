@@ -36,6 +36,6 @@ export interface UpdateMemberDTO {
 
   has_relative_in_uccz?: boolean;
 
-  email?: string;   // ✅ NEW
-  phone?: string;   // ✅ NEW
+  email?: string;   
+  phone?: string;  
 }
